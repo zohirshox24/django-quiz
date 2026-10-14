@@ -1,0 +1,47 @@
+{% extends "quiz/base.html" %}
+{% block title %}Natija{% endblock %}
+
+{% block content %}
+    <div class="card p-5 text-center mx-auto" style="max-width: 500px;">
+        <i class="bi bi-trophy fs-1" style="color:#58a6ff;"></i>
+        <h2 class="mt-2">Natijangiz</h2>
+        <h1 class="display-3 fw-bold my-3">{{ result.score }} / {{ result.total_questions }}</h1>
+        <p class="text-secondary fs-5">{{ result.percent }}% to'g'ri javob</p>
+
+        {% if result.category %}
+            <p class="text-secondary">Kategoriya: {{ result.category.name }}</p>
+        {% endif %}
+
+        <div class="d-flex gap-2 justify-content-center mt-4">
+            <a href="{% url 'quiz:category_list' %}" class="btn btn-outline-light">Yana urinish</a>
+            <a href="{% url 'quiz:leaderboard' %}" class="btn btn-primary">Reytingni ko'rish</a>
+        </div>
+    </div>
+
+    <h3 class="mt-5 mb-3">Javoblar tafsiloti</h3>
+
+    {% for item in result.details %}
+        <div class="card p-4 mb-3" style="border-left: 4px solid {% if item.is_correct %}#3fb950{% else %}#f85149{% endif %};">
+            <div class="d-flex justify-content-between align-items-start">
+                <p class="fw-bold mb-2">{{ forloop.counter }}. {{ item.question }}</p>
+                {% if item.is_correct %}
+                    <span class="text-success"><i class="bi bi-check-circle-fill"></i> To'g'ri</span>
+                {% else %}
+                    <span class="text-danger"><i class="bi bi-x-circle-fill"></i> Noto'g'ri</span>
+                {% endif %}
+            </div>
+
+            <p class="mb-1">
+                <span class="text-secondary">Sizning javobingiz:</span>
+                <span class="{% if item.is_correct %}text-success{% else %}text-danger{% endif %}">{{ item.selected }}</span>
+            </p>
+
+            {% if not item.is_correct %}
+                <p class="mb-0">
+                    <span class="text-secondary">To'g'ri javob:</span>
+                    <span class="text-success">{{ item.correct }}</span>
+                </p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

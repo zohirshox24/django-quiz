@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /quiz/
+Disallow: /result/
+Disallow: /login/
+Disallow: /register/
+Disallow: /logout/
+
+Sitemap: https://USERNAME.pythonanywhere.com/sitemap.xml

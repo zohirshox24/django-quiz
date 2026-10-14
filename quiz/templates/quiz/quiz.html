@@ -1,0 +1,40 @@
+{% extends "quiz/base.html" %}
+{% block title %}{{ category.name }} - Viktorina{% endblock %}
+
+{% block content %}
+    <div class="d-flex align-items-center gap-3 mb-1">
+        <a href="{% url 'quiz:category_list' %}" class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+        <h1 class="mb-0">{{ category.name }}</h1>
+    </div>
+    <p class="text-secondary mb-4 ms-5 ps-2">Barcha savollarga javob bering va "Yakunlash" tugmasini bosing.</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="card p-4 mb-3">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <label class="fw-bold mb-0">{{ forloop.counter }}. {{ field.label }}</label>
+                    <span class="badge badge-{{ field.field.difficulty }}">
+                        {% if field.field.difficulty == "easy" %}Oson{% elif field.field.difficulty == "medium" %}O'rta{% else %}Qiyin{% endif %}
+                    </span>
+                </div>
+
+                {% for radio in field %}
+                    <label class="form-check">
+                        {{ radio.tag }}
+                        <span class="form-check-label">{{ radio.choice_label }}</span>
+                    </label>
+                {% endfor %}
+
+                {% if field.errors %}
+                    <div class="text-danger small mt-1">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary btn-lg px-5">Yakunlash</button>
+    </form>
+{% endblock %}

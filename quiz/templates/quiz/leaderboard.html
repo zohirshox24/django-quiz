@@ -1,0 +1,49 @@
+{% extends "quiz/base.html" %}
+{% block title %}Reyting{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4"><i class="bi bi-bar-chart-fill"></i> Reyting jadvali</h1>
+
+    <div class="card p-0">
+        <table class="table table-dark mb-0 align-middle">
+            <thead>
+                <tr>
+                    <th style="width: 60px;">#</th>
+                    <th>Foydalanuvchi</th>
+                    <th>Kategoriya</th>
+                    <th>Ball</th>
+                    <th>Foiz</th>
+                    <th>Sana</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score in scores %}
+                    <tr class="leaderboard-row">
+                        <td class="rank">{{ forloop.counter }}</td>
+                        <td>{{ score.user.username }}</td>
+                        <td>{{ score.category.name|default:"—" }}</td>
+                        <td>{{ score.score }}/{{ score.total_questions }}</td>
+                        <td>{{ score.percent }}%</td>
+                        <td class="text-secondary small">{{ score.completed_at|date:"d.m.Y H:i" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="6" class="text-center text-secondary py-4">Hozircha natijalar yo'q.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if is_paginated %}
+        <nav class="mt-3">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link bg-dark text-white" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                {% endif %}
+                <li class="page-item"><span class="page-link bg-dark text-white">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link bg-dark text-white" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}

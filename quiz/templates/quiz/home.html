@@ -1,0 +1,40 @@
+{% extends "quiz/base.html" %}
+{% block title %}Bosh sahifa{% endblock %}
+
+{% block content %}
+    <div class="hero-wrap">
+        <span class="hero-badge"><i class="bi bi-stars"></i> Bilimingizni sinang</span>
+        <h1 class="hero-title">Django bilimingizni<br>sinab ko'ring</h1>
+        <p class="hero-sub">
+            Python, Django va ma'lumotlar bazasi bo'yicha viktorinalarda qatnashing,
+            ball to'plang va reytingda yuqori o'ringa chiqing.
+        </p>
+        <a href="{% url 'quiz:category_list' %}" class="btn btn-primary mt-4">
+            Boshlash <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+
+    <div class="row g-4 mt-2">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon-circle blue"><i class="bi bi-collection"></i></div>
+                <div class="stat-number">{{ categories_count }}</div>
+                <div class="stat-label">Kategoriya</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon-circle purple"><i class="bi bi-patch-question"></i></div>
+                <div class="stat-number">{{ questions_count }}</div>
+                <div class="stat-label">Savol</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon-circle green"><i class="bi bi-people"></i></div>
+                <div class="stat-number">{{ players_count }}</div>
+                <div class="stat-label">Qatnashchi</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
