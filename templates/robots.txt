@@ -7,4 +7,4 @@ Disallow: /login/
 Disallow: /register/
 Disallow: /logout/
 
-Sitemap: https://USERNAME.pythonanywhere.com/sitemap.xml
+Sitemap: https://zohirshox7.pythonanywhere.com/sitemap.xml
